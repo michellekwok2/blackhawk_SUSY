@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+AR=("1" "1.256" "1.585" "1.995" "2.512" "3.162" "3.981" "5.012" "6.310" "7.943")
+for p in {0..9..1}
+do
+	declare -i BASE=p
+	declare -i NBASE=BASE+1	
+	for j in {8..14..1}
+	do
+		declare -i VAR=j
+		declare -i NUM=VAR-1
+		declare 
+		sed -i "s/Mmin = ${AR[BASE]}e+${NUM}/Mmin = ${AR[BASE]}e+${VAR}/" masstest/parameters.txt
+		sed -i "s/Mmax = ${AR[BASE]}e+${NUM}/Mmax = ${AR[BASE]}e+${VAR}/" masstest/parameters.txt
+		sed -i "s/mass${NUM}/mass${VAR}/" masstest/parameters.txt
+		./BlackHawk_tot.x masstest/parameters.txt
+	done
+
+	sed -i "s/Mmin = ${AR[BASE]}e+14/Mmin = ${AR[NBASE]}e+8/" masstest/parameters.txt
+	sed -i "s/Mmax = ${AR[BASE]}e+14/Mmax = ${AR[NBASE]}e+8/" masstest/parameters.txt
+	if [ $p == 0 ]; then
+		sed -i "s/mass14/mass81/" masstest/parameters.txt
+	else
+		sed -i "s/mass14${BASE}/mass8${NBASE}/" masstest/parameters.txt
+	fi
+
+done
+

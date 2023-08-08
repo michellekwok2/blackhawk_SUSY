@@ -1,0 +1,29 @@
+Emin_hadro_pythia = 5.					# minimal energy in GeV of primary particles in the PYTHIA tables (DO NOT MODIFY)
+Emax_hadro_pythia = 100000.				# maximal energy in GeV of primary particles in the PYTHIA tables (DO NOT MODIFY)
+nb_init_en_pythia = 250					# number of energies of primary particles in the PYTHIA tables (DO NOT MODIFY)
+nb_fin_en_pythia = 500					# number of energies of secondary particles in the PYTHIA tables (DO NOT MODIFY)
+nb_init_part_pythia = 14				# number of primary particles in the PYTHIA tables (DO NOT MODIFY)
+nb_fin_part_pythia = 11					# number of secondary particles in the PYTHIA tables (DO NOT MODIFY)
+
+Emin_hadro_herwig = 25.					# minimal energy in GeV of primary particles in the HERWIG tables (DO NOT MODIFY)
+Emax_hadro_herwig = 100000.				# maximal energy in GeV of primary particles in the HERWIG tables (DO NOT MODIFY)
+nb_init_en_herwig = 100					# number of energies of primary particles in the HERWIG tables (DO NOT MODIFY)
+nb_fin_en_herwig = 100					# number of energies of secondary particles in the HERWIG tables (DO NOT MODIFY)
+nb_init_part_herwig = 14				# number of primary particles in the HERWIG tables (DO NOT MODIFY)
+nb_fin_part_herwig = 11					# number of secondary particles in the HERWIG tables (DO NOT MODIFY)
+
+Emin_hadro_pythia_new = 5.				# minimal energy in GeV of primary particles in the PYTHIA (new) tables (DO NOT MODIFY)
+Emax_hadro_pythia_new = 100000.				# maximal energy in GeV of primary particles in the PYTHIA (new) tables (DO NOT MODIFY)
+nb_init_en_pythia_new = 250				# number of energies of primary particles in the PYTHIA (new) tables (DO NOT MODIFY)
+nb_fin_en_pythia_new = 500				# number of energies of secondary particles in the PYTHIA (new) tables (DO NOT MODIFY)
+nb_init_part_pythia_new = 14				# number of primary particles in the PYTHIA (new) tables (DO NOT MODIFY)
+nb_fin_part_pythia_new = 6				# number of secondary particles in the PYTHIA (new) tables (DO NOT MODIFY)
+
+Emin_hadro_hazma = 1e-6					# minimal energy in GeV of primary particles in the HAZMA tables (DO NOT MODIFY)
+Emax_hadro_hazma = 5.					# maximal energy in GeV of primary particles in the HAZMA tables (DO NOT MODIFY)
+nb_init_en_hazma = 250					# number of energies of primary particles in the HAZMA tables (DO NOT MODIFY)
+nb_fin_en_hazma = 500					# number of energies of secondary particles in the HAZMA tables (DO NOT MODIFY)
+nb_init_part_hazma = 3					# number of primary particles in the HAZMA tables (DO NOT MODIFY)
+nb_fin_part_hazma = 2					# number of secondary particles in the HAZMA tables (DO NOT MODIFY)
+
+

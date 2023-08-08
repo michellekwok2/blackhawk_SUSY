@@ -1,0 +1,57 @@
+#!/bin/bash
+
+./BlackHawk_tot.x masstest/parameters.txt
+for j in {6..13..1}
+do
+	declare -i VAR=j
+	declare -i NUM=VAR-1
+	sed -i "s/Mmin = 1e+${NUM}/Mmin = 1e+${VAR}/" masstest/parameters.txt
+	sed -i "s/Mmax = 1e+${NUM}/Mmax = 1e+${VAR}/" masstest/parameters.txt
+	sed -i "s/mass${NUM}/mass${VAR}/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+done
+
+sed -i "s/Mmin = 1e+13/Mmin = 3.162e+5/" masstest/parameters.txt
+sed -i "s/Mmax = 1e+13/Mmax = 3.162e+5/" masstest/parameters.txt
+sed -i "s/mass13/mass55/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+for j in {6..13..1}
+do
+	declare -i VAR=j
+	declare -i NUM=VAR-1
+	sed -i "s/Mmin = 3.162e+${NUM}/Mmin = 3.162e+${VAR}/" masstest/parameters.txt
+	sed -i "s/Mmax = 3.162e+${NUM}/Mmax = 3.162e+${VAR}/" masstest/parameters.txt
+	sed -i "s/mass${NUM}5/mass${VAR}5/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+
+done
+
+sed -i "s/Mmin = 3.162e+13/Mmin = 1.995e+5/" masstest/parameters.txt
+sed -i "s/Mmax = 3.162e+13/Mmax = 1.995e+5/" masstest/parameters.txt
+sed -i "s/mass135/mass53/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+for j in {6..13..1}
+do
+	declare -i VAR=j
+	declare -i NUM=VAR-1
+	sed -i "s/Mmin = 1.995e+${NUM}/Mmin = 1.995e+${VAR}/" masstest/parameters.txt
+	sed -i "s/Mmax = 1.995e+${NUM}/Mmax = 1.995e+${VAR}/" masstest/parameters.txt
+	sed -i "s/mass${NUM}3/mass${VAR}3/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+
+done
+
+sed -i "s/Mmin = 1.995e+13/Mmin = 5.012e+5/" masstest/parameters.txt
+sed -i "s/Mmax = 1.995e+13/Mmax = 5.012e+5/" masstest/parameters.txt
+sed -i "s/mass133/mass57/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+for j in {6..13..1}
+do
+	declare -i VAR=j
+	declare -i NUM=VAR-1
+	sed -i "s/Mmin = 5.012e+${NUM}/Mmin = 5.012e+${VAR}/" masstest/parameters.txt
+	sed -i "s/Mmax = 5.012e+${NUM}/Mmax = 5.012e+${VAR}/" masstest/parameters.txt
+	sed -i "s/mass${NUM}7/mass${VAR}7/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+
+done

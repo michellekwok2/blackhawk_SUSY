@@ -1,0 +1,28 @@
+#!/bin/bash
+
+./BlackHawk_tot.x masstest/parameters.txt
+for j in {6..13..1}
+do
+	declare -i VAR=j
+	declare -i NUM=VAR-1
+	sed -i "s/Mmin = 1e+${NUM}/Mmin = 1e+${VAR}/" masstest/parameters.txt
+	sed -i "s/Mmax = 1e+${NUM}/Mmax = 1e+${VAR}/" masstest/parameters.txt
+	sed -i "s/mass${NUM}/mass${VAR}/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+done
+
+sed -i "s/Mmin = 1e+13/Mmin = 3.162e+5/" masstest/parameters.txt
+sed -i "s/Mmax = 1e+13/Mmax = 3.162e+5/" masstest/parameters.txt
+sed -i "s/mass13/mass55/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+for j in {6..13..1}
+do
+	declare -i VAR=j
+	declare -i NUM=VAR-1
+	sed -i "s/Mmin = 3.162e+${NUM}/Mmin = 3.162e+${VAR}/" masstest/parameters.txt
+	sed -i "s/Mmax = 3.162e+${NUM}/Mmax = 3.162e+${VAR}/" masstest/parameters.txt
+	sed -i "s/mass${NUM}5/mass${VAR}5/" masstest/parameters.txt
+	./BlackHawk_tot.x masstest/parameters.txt
+
+done
+

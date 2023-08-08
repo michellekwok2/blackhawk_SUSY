@@ -1,0 +1,12 @@
+#!/bin/bash
+pwd
+for j in {6..13..1}
+do
+	declare -i VAR=j
+	declare -i NUM=VAR-1
+	sed -i "s/Mmin = 1e+${NUM}/Mmin = 1e+${VAR}/" parameters.txt
+	sed -i "s/Mmax = 1e+${NUM}/Mmax = 1e+${VAR}/" parameters.txt
+	sed -i "s/mass${NUM}/mass${VAR}/" parameters.txt
+	btot masstest/parameters.txt
+
+done
