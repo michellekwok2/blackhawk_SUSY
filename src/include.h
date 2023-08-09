@@ -100,9 +100,13 @@ struct param{ // this structure will contain all the parameters of the run
 	int particle_number; // number of particle species to be emitted
 	int grav; // 0: no gravitons emitted, 1: gravitons emitted
 	int add_DM; // 0: no DM, 1: one primary DM particle
+	int add_DM2; // 0: no DM2, 1: one primary DM2 particle
 	double m_DM; // DM mass in GeV
+	double m_DM2; // DM2 mass in GeV
 	double spin_DM; // spin of DM among 0., 1., 2., 0.5, 1.5
+	double spin_DM2; // spin of DM2 among 0., 1., 2., 0.5, 1.5
 	double dof_DM; // number of DM degrees of freedom
+	double dof_DM2; // number of DM2 degrees of freedom
 	
 	int primary_only; // if set to 1, the code will skip the hadronization part, if set to 0, the secondary spectra are computed
 	int hadronization_choice; // choice of hadronization tables (0: PYTHIA, 1: HERWIG, 2: PYTHIA NEW, 3: HAZMA)
