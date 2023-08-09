@@ -379,7 +379,7 @@ int main(int argc,char **argv)
 	fflush(stdout);
 	
 	// Defining particle information
-	double *dof = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM)*sizeof(double)); // contains the number of degrees of freedom for each particle
+	double *dof = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2)*sizeof(double)); // contains the number of degrees of freedom for each particle
 	dof[0] = 2.; // photons (2 helicity states)
 	dof[1] = 16.; // gluons (8 particle species)*(2 helicity states)
 	dof[2] = 1.; // higgs boson (1 helicity state)
@@ -399,15 +399,31 @@ int main(int argc,char **argv)
 		dof[15] = 2.; // graviton (2 polarization states)
 		if(parameters.add_DM){
 			dof[16] = parameters.dof_DM;
+			if(parameters.add_DM2){
+				dof[17] = parameters.dof_DM2;
+			}
+		}
+		else{
+		if(parameters.add_DM2){
+			dof[16] = parameters.dof_DM2;
+		}
 		}
 	}
 	else{
 		if(parameters.add_DM){
 			dof[15] = parameters.dof_DM;
+			if(parameters.add_DM2){
+				dof[16] = parameters.dof_DM2;
+			}
+		}
+		else{
+		if(parameters.add_DM2){
+			dof[15] = parameters.dof_DM2;
+		}
 		}
 	}
 	
-	double *spins = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM)*sizeof(double)); // contains the spin of each particle
+	double *spins = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2)*sizeof(double)); // contains the spin of each particle
 	spins[0] = 1.;
 	spins[1] = 1.;
 	spins[2] = 0.;
@@ -427,15 +443,31 @@ int main(int argc,char **argv)
 		spins[15] = 2.;
 		if(parameters.add_DM){
 			spins[16] = parameters.spin_DM;
+			if(parameters.add_DM2){
+				spins[17] = parameters.spin_DM2;
+			}
+		}
+		else{
+		if(parameters.add_DM2){
+			spins[16] = parameters.spin_DM2;
+		}
 		}
 	}
 	else{
 		if(parameters.add_DM){
 			spins[15] = parameters.spin_DM;
+			if(parameters.add_DM2){
+				spins[16] = parameters.spin_DM2;
+			}
+		}
+		else{
+		if(parameters.add_DM2){
+			spins[15] = parameters.spin_DM2;
+		}
 		}
 	}
 	
-	double *masses_primary = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM)*sizeof(double)); // contains the mass of each particle
+	double *masses_primary = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2)*sizeof(double)); // contains the mass of each particle
 	masses_primary[0] = m_photon;
 	masses_primary[1] = m_gluon;
 	masses_primary[2] = m_higgs;
@@ -455,11 +487,27 @@ int main(int argc,char **argv)
 		masses_primary[15] = m_graviton;
 		if(parameters.add_DM){
 			masses_primary[16] = parameters.m_DM;
+			if(parameters.add_DM2){
+				masses_primary[17] = parameters.m_DM2;
+			}
+		}
+		else{
+		if(parameters.add_DM2){
+			masses_primary[16] = parameters.m_DM2;
+		}
 		}
 	}
 	else{
 		if(parameters.add_DM){
 			masses_primary[15] = parameters.m_DM;
+			if(parameters.add_DM2){
+				masses_primary[16] = parameters.m_DM2;
+			}
+		}
+		else{
+		if(parameters.add_DM2){
+			masses_primary[15] = parameters.m_DM2;
+		}
 		}
 	}
 	
@@ -510,8 +558,8 @@ int main(int argc,char **argv)
 	printf("[main] : COMPUTING SPECTRA...");
 	fflush(stdout);
 	
-	double **partial_primary_spectra = (double **)malloc((parameters.particle_number + parameters.grav+parameters.add_DM)*sizeof(double *)); // contains the snapshot of the primary spectra at each time
-	for(int i = 0;i<parameters.particle_number+parameters.grav+parameters.add_DM;i++){
+	double **partial_primary_spectra = (double **)malloc((parameters.particle_number + parameters.grav+parameters.add_DM+parameters.add_DM2)*sizeof(double *)); // contains the snapshot of the primary spectra at each time
+	for(int i = 0;i<parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2;i++){
 		partial_primary_spectra[i] = (double *)malloc(parameters.E_number*sizeof(double));
 	}
 	
@@ -588,7 +636,7 @@ int main(int argc,char **argv)
 	free1D_double(masses_primary);
 	free1D_double(spins);
 	free1D_double(dof);
-	free2D_double(partial_primary_spectra,parameters.particle_number+parameters.grav+parameters.add_DM);
+	free2D_double(partial_primary_spectra,parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2);
 	if(parameters.primary_only == 0){
 		free4D_double(tables,parameters.nb_fin_part,parameters.nb_init_en,parameters.nb_fin_en);
 		free1D_double(final_energies);
@@ -604,3 +652,4 @@ int main(int argc,char **argv)
 	return 1; // this is the only possibility of returning 1: it means that all steps have succeeded
 }
 // &&&&&&&&&&&&&&&&&&&&&&&&& END OF MAIN &&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
