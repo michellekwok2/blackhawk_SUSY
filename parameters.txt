@@ -1,17 +1,17 @@
-destination_folder = 1000mass5							# name of the output folder in results/
-full_output = 0									# quantity of information displayed (0=less, 1=more)
+destination_folder = test							# name of the output folder in results/
+full_output = 1									# quantity of information displayed (0=less, 1=more)
 interpolation_method = 0							# interpolation in the numerical tables (0=linear, 1=logarithmic)
 
 metric = 0									# BH metric: 0=Kerr, 1=polymerized, 2=charged, 3=higher-dimensional
 
 BH_number = 1									# number of BH masses (should be the number of tabulated masses if spectrum_choice=5)
-Mmin = 1e+5								# lowest BH mass in g (larger than the Planck mass)
-Mmax = 1e+5									# highest BH mass in g (larger than the Planck mass)
+Mmin = 1e+9								# lowest BH mass in g (larger than the Planck mass)
+Mmax = 1e+9									# highest BH mass in g (larger than the Planck mass)
 param_number = 1									# number of Kerr spins
 amin = 0.									# lowest Kerr spin
-amax = 0.5									# highest Kerr spin
+amax = 00									# highest Kerr spin
 Qmin = 0.									# lowest Reissner-Norström charge
-Qmax = 0.7									# highest Reissner-Norström charge
+Qmax = 0.0									# highest Reissner-Norström charge
 
 epsilon_LQG = 1.5								# dimensionless epsilon parameter for the polymerized metric
 a0_LQG = 0.									# minimal area for the polymerized metric in GeV^(-2)
@@ -42,18 +42,22 @@ tmin_manual = 0									# 1: user-defined tmin, 0:automatically set tmin
 tmin = 1.e-30									# initial integration time of the evolution of BH in s
 limit = 5000									# iteration limit when computing the time evolution of a single BH
 BH_remnant = 0									# 0: total evaporation, 1: BH relic at mass M_relic
-M_remnant = 1e-4								# BH relic mass in g
+M_remnant = 1e-4  								# BH relic mass in g
 
-E_number = 10									# number of primary particles energies to be simulated
-Emin = 5										# minimal energy in GeV of the primary particles
-Emax = 1e+5										# maximal energy in GeV of the primary particles
+E_number = 100  									# number of primary particles energies to be simulated
+Emin = 1e+3										# minimal energy in GeV of the primary particles
+Emax = 1e+6										# maximal energy in GeV of the primary particles
 
-grav = 0										# 0=no graviton, 1=emission of gravitons
+grav = 1										# 0=no graviton, 1=emission of gravitons
 add_DM = 1										# 0=no DM added, 1=one DM particle
-m_DM = 1000										# DM mass in GeV
-spin_DM = 0.5										# DM spin
-dof_DM = 2.										# number of DM degrees of freedom
+add_DM2 = 1										# 0=no DM2 added, 1=one DM2 particle
+m_DM =	1.									# DM mass in GeV
+m_DM2 = 1.										# DM2 mass in GeV
+spin_DM = 1.										# DM spin
+spin_DM2 = 1										# DM2 spin
+dof_DM = 1   										# number of DM degrees of freedom
+dof_DM2 = 1										# number of DM2 degrees of freedom
 
-primary_only = 0								# 1=no secondary spectrum, 0=secondary spectrum computed
+primary_only = 1								# 1=no secondary spectrum, 0=secondary spectrum computed
 
 hadronization_choice = 0							# 0=PYTHIA at the BBN epoch, 1=HERWIG at the BBN epoch, 2=PYTHIA (new) at the present epoch, 3=HAZMA at the present epoch
