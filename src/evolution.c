@@ -240,6 +240,23 @@ void read_fM_table(double **fM_table,double *fM_masses,double *fM_param,struct p
 				}
 				else if(parameters->spin_DM == 0.5){
 					if(parameters->spin_DM2 == 0.){
+						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
+					}
+					else if(parameters->spin_DM2 == 1.){
+						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
+					}
+					else if(parameters->spin_DM2 == 2.){
+						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
+					}
+					else if(parameters->spin_DM2 == 0.5){
+						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
+					}
+					else{
+						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
+					}
+				}
+				else{
+					if(parameters->spin_DM2 == 0.){
 						sprintf(name,"./src/tables/fM_tables/fM_add0.txt");
 					}
 					else if(parameters->spin_DM2 == 1.){
@@ -254,9 +271,6 @@ void read_fM_table(double **fM_table,double *fM_masses,double *fM_param,struct p
 					else{
 						sprintf(name,"./src/tables/fM_tables/fM_add15.txt");
 					}
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/fM_add15.txt");
 				}
 			}
 			else{
@@ -329,7 +343,21 @@ void read_fM_table(double **fM_table,double *fM_masses,double *fM_param,struct p
 					}
 				}
 				else{
-					sprintf(name,"./src/tables/fM_tables/fM_add15_nograv.txt");
+					if(parameters->spin_DM2 == 0.){
+						sprintf(name,"./src/tables/fM_tables/fM_add0_nograv.txt");
+					}
+					else if(parameters->spin_DM2 == 1.){
+						sprintf(name,"./src/tables/fM_tables/fM_add1_nograv.txt");
+					}
+					else if(parameters->spin_DM2 == 2.){
+						sprintf(name,"./src/tables/fM_tables/fM_add2_nograv.txt");
+					}
+					else if(parameters->spin_DM2 == 0.5){
+						sprintf(name,"./src/tables/fM_tables/fM_add05_nograv.txt");
+					}
+					else{
+						sprintf(name,"./src/tables/fM_tables/fM_add15_nograv.txt");
+					}
 				}
 			}
 		}
@@ -519,6 +547,23 @@ void read_gM_table(double **gM_table,double *fM_masses,double *fM_param,struct p
 			}
 			else if(parameters->spin_DM == 0.5){
 				if(parameters->spin_DM2 == 0.){
+					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
+				}
+				else if(parameters->spin_DM2 == 1.){
+					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
+				}
+				else if(parameters->spin_DM2 == 2.){
+					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
+				}
+				else if(parameters->spin_DM2 == 0.5){
+					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
+				}
+				else{
+					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
+				}
+			}
+			else{
+				if(parameters->spin_DM2 == 0.){
 					sprintf(name,"./src/tables/fM_tables/gM_add0.txt");
 				}
 				else if(parameters->spin_DM2 == 1.){
@@ -533,9 +578,6 @@ void read_gM_table(double **gM_table,double *fM_masses,double *fM_param,struct p
 				else{
 					sprintf(name,"./src/tables/fM_tables/gM_add15.txt");
 				}
-			}
-			else{
-				sprintf(name,"./src/tables/fM_tables/gM_add15.txt");
 			}
 		}
 		else{
@@ -608,7 +650,21 @@ void read_gM_table(double **gM_table,double *fM_masses,double *fM_param,struct p
 				}
 			}
 			else{
-				sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
+				if(parameters->spin_DM2 == 0.){
+					sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
+				}
+				else if(parameters->spin_DM2 == 1.){
+					sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
+				}
+				else if(parameters->spin_DM2 == 2.){
+					sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
+				}
+				else if(parameters->spin_DM2 == 0.5){
+					sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
+				}
+				else{
+					sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
+				}
 			}
 		}
 	}
