@@ -105,7 +105,7 @@ void read_fM_table(double **fM_table,double *fM_masses,double *fM_param,struct p
 	FILE *table_file;
 	char name[64];
 	if(parameters->metric == 0){
-		if(!parameters->add_DM && !parameters->add_DM2){
+		if(!parameters->add_DM){
 			if(parameters->grav){
 				sprintf(name,"./src/tables/fM_tables/fM.txt");
 			}
@@ -113,7 +113,7 @@ void read_fM_table(double **fM_table,double *fM_masses,double *fM_param,struct p
 				sprintf(name,"./src/tables/fM_tables/fM_nograv.txt");
 			}
 		}
-		else if(parameters->add_DM && !parameters->add_DM2){
+		else if(parameters->add_DM == 1){
 			if(parameters->grav){
 				if(parameters->spin_DM == 0.){
 					sprintf(name,"./src/tables/fM_tables/fM_add0.txt");
@@ -149,18 +149,18 @@ void read_fM_table(double **fM_table,double *fM_masses,double *fM_param,struct p
 				}
 			}
 		}
-		else if(!parameters->add_DM && parameters->add_DM2){
+		else if(parameters->add_DM == 2){
 			if(parameters->grav){
-				if(parameters->spin_DM2 == 0.){
+				if(parameters->spin_DM == 0.){
 					sprintf(name,"./src/tables/fM_tables/fM_add0.txt");
 				}
-				else if(parameters->spin_DM2 == 1.){
+				else if(parameters->spin_DM == 1.){
 					sprintf(name,"./src/tables/fM_tables/fM_add1.txt");
 				}
-				else if(parameters->spin_DM2 == 2.){
+				else if(parameters->spin_DM == 2.){
 					sprintf(name,"./src/tables/fM_tables/fM_add2.txt");
 				}
-				else if(parameters->spin_DM2 == 0.5){
+				else if(parameters->spin_DM == 0.5){
 					sprintf(name,"./src/tables/fM_tables/fM_add05.txt");
 				}
 				else{
@@ -168,16 +168,16 @@ void read_fM_table(double **fM_table,double *fM_masses,double *fM_param,struct p
 				}
 			}
 			else{
-				if(parameters->spin_DM2 == 0.){
+				if(parameters->spin_DM == 0.){
 					sprintf(name,"./src/tables/fM_tables/fM_add0_nograv.txt");
 				}
-				else if(parameters->spin_DM2 == 1.){
+				else if(parameters->spin_DM == 1.){
 					sprintf(name,"./src/tables/fM_tables/fM_add1_nograv.txt");
 				}
-				else if(parameters->spin_DM2 == 2.){
+				else if(parameters->spin_DM == 2.){
 					sprintf(name,"./src/tables/fM_tables/fM_add2_nograv.txt");
 				}
-				else if(parameters->spin_DM2 == 0.5){
+				else if(parameters->spin_DM == 0.5){
 					sprintf(name,"./src/tables/fM_tables/fM_add05_nograv.txt");
 				}
 				else{
@@ -185,179 +185,44 @@ void read_fM_table(double **fM_table,double *fM_masses,double *fM_param,struct p
 				}
 			}
 		}
-		else if(parameters->add_DM && parameters->add_DM2){
+		else if(parameters->add_DM == 3){
 			if(parameters->grav){
 				if(parameters->spin_DM == 0.){
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add0.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add1.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add2.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05.txt");
-					}
-					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add15.txt");
-					}
+					sprintf(name,"./src/tables/fM_tables/fM_add0.txt");
 				}
 				else if(parameters->spin_DM == 1.){
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add0.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add1.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add2.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05.txt");
-					}
-					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add15.txt");
-					}
+					sprintf(name,"./src/tables/fM_tables/fM_add1.txt");
 				}
 				else if(parameters->spin_DM == 2.){
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add0.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add1.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add2.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05.txt");
-					}
-					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add15.txt");
-					}
+					sprintf(name,"./src/tables/fM_tables/fM_add2.txt");
 				}
 				else if(parameters->spin_DM == 0.5){
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
+					if(parameters->spin_DM2 == 0. && parameters->spin_DM3 == 0.5){
+						sprintf(name,"./src/tables/fM_tables/fM_add05_add0_add05.txt");
 					}
 					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add05_DM2.txt");
+						sprintf(name,"./src/tables/fM_tables/fM_add05.txt");
 					}
 				}
 				else{
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add0.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add1.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add2.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05.txt");
-					}
-					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add15.txt");
-					}
+					sprintf(name,"./src/tables/fM_tables/fM_add15.txt");
 				}
 			}
 			else{
 				if(parameters->spin_DM == 0.){
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add0_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add1_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add2_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05_nograv.txt");
-					}
-					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add15_nograv.txt");
-					}
+					sprintf(name,"./src/tables/fM_tables/fM_add0_nograv.txt");
 				}
 				else if(parameters->spin_DM == 1.){
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add0_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add1_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add2_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05_nograv.txt");
-					}
-					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add15_nograv.txt");
-					}
+					sprintf(name,"./src/tables/fM_tables/fM_add1_nograv.txt");
 				}
 				else if(parameters->spin_DM == 2.){
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add0_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add1_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add2_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05_nograv.txt");
-					}
-					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add15_nograv.txt");
-					}
+					sprintf(name,"./src/tables/fM_tables/fM_add2_nograv.txt");
 				}
 				else if(parameters->spin_DM == 0.5){
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add0_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add1_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add2_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05_nograv.txt");
-					}
-					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add15_nograv.txt");
-					}
+					sprintf(name,"./src/tables/fM_tables/fM_add05_nograv.txt");
 				}
 				else{
-					if(parameters->spin_DM2 == 0.){
-						sprintf(name,"./src/tables/fM_tables/fM_add0_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 1.){
-						sprintf(name,"./src/tables/fM_tables/fM_add1_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 2.){
-						sprintf(name,"./src/tables/fM_tables/fM_add2_nograv.txt");
-					}
-					else if(parameters->spin_DM2 == 0.5){
-						sprintf(name,"./src/tables/fM_tables/fM_add05_nograv.txt");
-					}
-					else{
-						sprintf(name,"./src/tables/fM_tables/fM_add15_nograv.txt");
-					}
+					sprintf(name,"./src/tables/fM_tables/fM_add15_nograv.txt");
 				}
 			}
 		}
@@ -412,62 +277,26 @@ void read_gM_table(double **gM_table,double *fM_masses,double *fM_param,struct p
 	
 	FILE *table_file;
 	char name[64];
-	if(!parameters->add_DM && !parameters->add_DM2){
-			if(parameters->grav){
-				sprintf(name,"./src/tables/fM_tables/gM.txt");
-			}
-			else{
-				sprintf(name,"./src/tables/fM_tables/gM_nograv.txt");
-			}
-	}
-	else if(parameters->add_DM && !parameters->add_DM2){
-			if(parameters->grav){
-				if(parameters->spin_DM == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0.txt");
-				}
-				else if(parameters->spin_DM == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1.txt");
-				}
-				else if(parameters->spin_DM == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2.txt");
-				}
-				else if(parameters->spin_DM == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15.txt");
-				}
-			}
-			else{
-				if(parameters->spin_DM == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
-				}
-				else if(parameters->spin_DM == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
-				}
-				else if(parameters->spin_DM == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
-				}
-				else if(parameters->spin_DM == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
-				}
-			}
-	}
-	else if(!parameters->add_DM && parameters->add_DM2){
+	if(!parameters->add_DM){
 		if(parameters->grav){
-			if(parameters->spin_DM2 == 0.){
+			sprintf(name,"./src/tables/fM_tables/gM.txt");
+		}
+		else{
+			sprintf(name,"./src/tables/fM_tables/gM_nograv.txt");
+		}
+	}
+	else if(parameters->add_DM == 1){
+		if(parameters->grav){
+			if(parameters->spin_DM == 0.){
 				sprintf(name,"./src/tables/fM_tables/gM_add0.txt");
 			}
-			else if(parameters->spin_DM2 == 1.){
+			else if(parameters->spin_DM == 1.){
 				sprintf(name,"./src/tables/fM_tables/gM_add1.txt");
 			}
-			else if(parameters->spin_DM2 == 2.){
+			else if(parameters->spin_DM == 2.){
 				sprintf(name,"./src/tables/fM_tables/gM_add2.txt");
 			}
-			else if(parameters->spin_DM2 == 0.5){
+			else if(parameters->spin_DM == 0.5){
 				sprintf(name,"./src/tables/fM_tables/gM_add05.txt");
 			}
 			else{
@@ -475,16 +304,16 @@ void read_gM_table(double **gM_table,double *fM_masses,double *fM_param,struct p
 			}
 		}
 		else{
-			if(parameters->spin_DM2 == 0.){
+			if(parameters->spin_DM == 0.){
 				sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
 			}
-			else if(parameters->spin_DM2 == 1.){
+			else if(parameters->spin_DM == 1.){
 				sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
 			}
-			else if(parameters->spin_DM2 == 2.){
+			else if(parameters->spin_DM == 2.){
 				sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
 			}
-			else if(parameters->spin_DM2 == 0.5){
+			else if(parameters->spin_DM == 0.5){
 				sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
 			}
 			else{
@@ -492,179 +321,80 @@ void read_gM_table(double **gM_table,double *fM_masses,double *fM_param,struct p
 			}
 		}
 	}
-	else if(parameters->add_DM && parameters->add_DM2){
+	else if(parameters->add_DM == 2){
 		if(parameters->grav){
 			if(parameters->spin_DM == 0.){
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15.txt");
-				}
+				sprintf(name,"./src/tables/fM_tables/gM_add0.txt");
 			}
 			else if(parameters->spin_DM == 1.){
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15.txt");
-				}
+				sprintf(name,"./src/tables/fM_tables/gM_add1.txt");
 			}
 			else if(parameters->spin_DM == 2.){
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15.txt");
-				}
+				sprintf(name,"./src/tables/fM_tables/gM_add2.txt");
 			}
 			else if(parameters->spin_DM == 0.5){
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add05_DM2.txt");
-				}
+				sprintf(name,"./src/tables/fM_tables/gM_add05.txt");
 			}
 			else{
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15.txt");
-				}
+				sprintf(name,"./src/tables/fM_tables/gM_add15.txt");
 			}
 		}
 		else{
 			if(parameters->spin_DM == 0.){
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
-				}
+				sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
 			}
 			else if(parameters->spin_DM == 1.){
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
-				}
+				sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
 			}
 			else if(parameters->spin_DM == 2.){
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
-				}
+				sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
 			}
 			else if(parameters->spin_DM == 0.5){
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
+				sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
+			}
+			else{
+				sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
+			}
+		}
+	}
+	else if(parameters->add_DM == 3){
+		if(parameters->grav){
+			if(parameters->spin_DM == 0.){
+				sprintf(name,"./src/tables/fM_tables/gM_add0.txt");
+			}
+			else if(parameters->spin_DM == 1.){
+				sprintf(name,"./src/tables/fM_tables/gM_add1.txt");
+			}
+			else if(parameters->spin_DM == 2.){
+				sprintf(name,"./src/tables/fM_tables/gM_add2.txt");
+			}
+			else if(parameters->spin_DM == 0.5){
+				if(parameters->spin_DM2 == 0. && parameters->spin_DM3 == 0.5){
+					sprintf(name,"./src/tables/fM_tables/gM_add05_add0_add05.txt");
 				}
 				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
+					sprintf(name,"./src/tables/fM_tables/gM_add05.txt");
 				}
 			}
 			else{
-				if(parameters->spin_DM2 == 0.){
-					sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 1.){
-					sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 2.){
-					sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
-				}
-				else if(parameters->spin_DM2 == 0.5){
-					sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
-				}
-				else{
-					sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
-				}
+				sprintf(name,"./src/tables/fM_tables/gM_add15.txt");
+			}
+		}
+		else{
+			if(parameters->spin_DM == 0.){
+				sprintf(name,"./src/tables/fM_tables/gM_add0_nograv.txt");
+			}
+			else if(parameters->spin_DM == 1.){
+				sprintf(name,"./src/tables/fM_tables/gM_add1_nograv.txt");
+			}
+			else if(parameters->spin_DM == 2.){
+				sprintf(name,"./src/tables/fM_tables/gM_add2_nograv.txt");
+			}
+			else if(parameters->spin_DM == 0.5){
+				sprintf(name,"./src/tables/fM_tables/gM_add05_nograv.txt");
+			}
+			else{
+				sprintf(name,"./src/tables/fM_tables/gM_add15_nograv.txt");
 			}
 		}
 	}

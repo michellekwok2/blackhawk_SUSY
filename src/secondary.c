@@ -307,49 +307,64 @@ void read_writing_instructions(int *write_primary,int *write_secondary,struct pa
 		fscanf(write,"%s",dummy);
 		fscanf(write,"%s",dummy);
 		fscanf(write,"%i",&(write_primary[15]));
-		if(parameters->add_DM){
+		if(parameters->add_DM == 1){
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%i",&(write_primary[16]));
-			if(parameters->add_DM2){ // assuming add_DM2 is the new field in param structure
-        		fscanf(write,"%s",dummy);
-        		fscanf(write,"%s",dummy);
-        		fscanf(write,"%i",&(write_primary[17])); // assuming 17 is the index for DM2
-    		}
 		}
-		else if(parameters->add_DM2){
-			fscanf(write,"%s",dummy);
-			fscanf(write,"%s",dummy);
-			fscanf(write,"%i",dummy);
+		else if(parameters->add_DM == 2){
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%i",&(write_primary[16]));
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%i",&(write_primary[17]));
+		}
+		else if(parameters->add_DM == 3){
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%i",&(write_primary[16]));
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%i",&(write_primary[17]));
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%i",&(write_primary[18]));
 		}
 	}
 	else{ 
-		if(parameters->add_DM){
+		if(parameters->add_DM == 1){
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%i",dummy);
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%i",&(write_primary[15]));
-			if(parameters->add_DM2){
-        		fscanf(write,"%s",dummy);
-        		fscanf(write,"%s",dummy);
-        		fscanf(write,"%i",&(write_primary[16]));
-    		}
 		}
-		else if(parameters->add_DM2){
-			fscanf(write,"%s",dummy);
-			fscanf(write,"%s",dummy);
-			fscanf(write,"%i",dummy);
+		else if(parameters->add_DM == 2){
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%i",dummy);
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%s",dummy);
 			fscanf(write,"%i",&(write_primary[15]));
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%i",&(write_primary[16]));
+		}
+		else if(parameters->add_DM == 3){
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%i",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%i",&(write_primary[15]));
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%i",&(write_primary[16]));
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%s",dummy);
+			fscanf(write,"%i",&(write_primary[17]));
 		}
 	}
 	fclose(write);
@@ -392,7 +407,7 @@ void write_lines(char **file_names_primary,char **file_names_secondary,double **
 	// files '*_primary_spectrum.txt' and '*_secondary_spectrum.txt'.
 	
 	FILE *file;
-	for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2;i++){
+	for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM;i++){
 		if(write_primary[i]){
 			file = fopen(file_names_primary[i],"a");
 			if(!file){
@@ -438,8 +453,8 @@ void total_spectra(double ***partial_hadronized_spectra,double **partial_primary
 	// by calling the "instantaneous" functions. It fills the partial arrays partial_primary_spectra[][],
 	// partial_hadronized_spectra[][][] and partial_integrated_hadronized_spectra[][].
 	
-	char **file_names_primary = (char **)malloc((parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2)*sizeof(char *)); // contains the names of the output files
-	for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2;i++){
+	char **file_names_primary = (char **)malloc((parameters->particle_number+parameters->grav+parameters->add_DM)*sizeof(char *)); // contains the names of the output files
+	for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM;i++){
 		file_names_primary[i] = (char *)malloc(64*sizeof(char));
 	}
 	sprintf(file_names_primary[0],"./results/%s/photon_primary_spectrum.txt",parameters->destination_folder);
@@ -459,43 +474,66 @@ void total_spectra(double ***partial_hadronized_spectra,double **partial_primary
 	sprintf(file_names_primary[14],"./results/%s/bottom_primary_spectrum.txt",parameters->destination_folder);
 	if(parameters->grav == 1){
 		sprintf(file_names_primary[15],"./results/%s/graviton_primary_spectrum.txt",parameters->destination_folder);
-		if(parameters->add_DM){
+		if(parameters->add_DM == 1){
 			if(parameters->hadronization_choice != 3){
 				sprintf(file_names_primary[16],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
-				if(parameters->add_DM2){
-					sprintf(file_names_primary[17],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
-				}
 			}
 			else{
 				sprintf(file_names_primary[16],"./results/%s/pion_primary_spectrum.txt",parameters->destination_folder);				
 			}
 		}
-		else{
-		if(parameters->add_DM2){
+		else if(parameters->add_DM == 2){
 			if(parameters->hadronization_choice != 3){
-				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[16],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[17],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
 			}
 			else{
-				sprintf(file_names_primary[16],"./results/%s/pion_primary_spectrum.txt",parameters->destination_folder);				
+				sprintf(file_names_primary[16],"./results/%s/pion_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[17],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);				
 			}
 		}
+		else if(parameters->add_DM == 3){
+			if(parameters->hadronization_choice != 3){
+				sprintf(file_names_primary[16],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[17],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[18],"./results/%s/DM3_primary_spectrum.txt",parameters->destination_folder);
+			}
+			else{
+				sprintf(file_names_primary[16],"./results/%s/pion_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[17],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[18],"./results/%s/DM3_primary_spectrum.txt",parameters->destination_folder);				
+			}
 		}
 	}
 	else{
-		if(parameters->add_DM){
+		if(parameters->add_DM == 1){
 			sprintf(file_names_primary[15],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
-			if(parameters->add_DM2){
-				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
-			}	
 		}
-		else{
-			if(parameters->add_DM2){
-				sprintf(file_names_primary[15],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
+		else if(parameters->add_DM == 2){
+			if(parameters->hadronization_choice != 3){
+				sprintf(file_names_primary[15],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
+			}
+			else{
+				sprintf(file_names_primary[15],"./results/%s/pion_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);				
+			}
+		}
+		else if(parameters->add_DM == 3){
+			if(parameters->hadronization_choice != 3){
+				sprintf(file_names_primary[15],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[17],"./results/%s/DM3_primary_spectrum.txt",parameters->destination_folder);
+			}
+			else{
+				sprintf(file_names_primary[15],"./results/%s/pion_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
+				sprintf(file_names_primary[17],"./results/%s/DM3_primary_spectrum.txt",parameters->destination_folder);				
 			}
 		}
 	}
 	FILE *file;
-	for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2;i++){
+	for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM;i++){
 		file = fopen(file_names_primary[i],"w+");
 		if(!file){
 			printf("\n\t [total_spectra] : ERROR COULD NOT OPEN FILE '%s' !\n",file_names_primary[i]);
@@ -506,7 +544,7 @@ void total_spectra(double ***partial_hadronized_spectra,double **partial_primary
 		fprintf(file,"Hawking primary spectrum as a function of time.\n");
 		fprintf(file,"%15s","time/energy");
 		for(int l = 0;l<parameters->E_number;l++){
-			fprintf(file,"%15.7e",energies[l]);
+			fprintf(file,"%15.5e",energies[l]);
 		}
 		fprintf(file,"\n");
 		fclose(file);
@@ -575,12 +613,12 @@ void total_spectra(double ***partial_hadronized_spectra,double **partial_primary
 	int full_output = parameters->full_output; // We don't print the "full output" of the next functions but save the parameter for later
 	parameters->full_output = 0;
 	
-	int *write_primary = (int *)malloc((parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2)*sizeof(int));
+	int *write_primary = (int *)malloc((parameters->particle_number+parameters->grav+parameters->add_DM)*sizeof(int));
 	int *write_secondary = (int *)malloc(parameters->nb_fin_part*sizeof(int));
 	
 	read_writing_instructions(write_primary,write_secondary,parameters);
 	
-	int *compute_primary = (int *)malloc((parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2)*sizeof(int)); // this table decides whether the corresponding spectra are computed or not
+	int *compute_primary = (int *)malloc((parameters->particle_number+parameters->grav+parameters->add_DM)*sizeof(int)); // this table decides whether the corresponding spectra are computed or not
 	compute_primary[0] = 1; // photons
 	compute_primary[1] = 1; // gluons
 	compute_primary[2] = 1; // higgs boson
@@ -598,22 +636,31 @@ void total_spectra(double ***partial_hadronized_spectra,double **partial_primary
 	compute_primary[14] = 1; // bottom quark
 	if(parameters->grav){
 		compute_primary[15] = 1; // graviton
-		if(parameters->add_DM){
+		if(parameters->add_DM == 1){
 			compute_primary[16] = 1;
-			if(parameters->add_DM2){
-				compute_primary[17] = 1;
-			}
+		}
+		else if(parameters->add_DM == 2){
+			compute_primary[16] = 1;
+			compute_primary[17] = 1;
+		}
+		else if(parameters->add_DM == 3){
+			compute_primary[16] = 1;
+			compute_primary[17] = 1;
+			compute_primary[18] = 1;
 		}
 	}
-	else{ 
-		if(parameters->add_DM){
+	else{
+		if(parameters->add_DM == 1){
 			compute_primary[15] = 1;
-			if(parameters->add_DM2){
-				compute_primary[16] = 1;
-			}
 		}
-		else if(parameters->add_DM2){
+		else if(parameters->add_DM == 2){
 			compute_primary[15] = 1;
+			compute_primary[16] = 1;
+		}
+		else if(parameters->add_DM == 3){
+			compute_primary[15] = 1;
+			compute_primary[16] = 1;
+			compute_primary[17] = 1;
 		}
 	}
 	int *compute_secondary = (int *)malloc(parameters->nb_fin_part*sizeof(int)); // decides whether we compute the contribution from this particle or not
@@ -718,7 +765,7 @@ void total_spectra(double ***partial_hadronized_spectra,double **partial_primary
 	free1D_int(compute_secondary);
 	free1D_int(write_primary);
 	free1D_int(write_secondary);
-	free2D_char(file_names_primary,parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2);
+	free2D_char(file_names_primary,parameters->particle_number+parameters->grav+parameters->add_DM);
 	if(parameters->primary_only == 0){
 		free2D_char(file_names_secondary,parameters->nb_fin_part);
 	}

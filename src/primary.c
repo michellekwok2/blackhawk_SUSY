@@ -364,7 +364,7 @@ void instantaneous_primary_spectrum(double **instantaneous_primary_spectra,doubl
 		printf("\n\n\t compute:\t");
 		fflush(stdout);
 	}
-	for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2;i++){
+	for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM;i++){
 /*#if defined(_OPENMP)
 #pragma omp parallel for
 #endif*/
@@ -379,7 +379,7 @@ void instantaneous_primary_spectrum(double **instantaneous_primary_spectra,doubl
 			}
 		}
 		if(parameters->full_output){ // prints the current state of computation
-			printf("%i/%i ",i+1,parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2);
+			printf("%i/%i ",i+1,parameters->particle_number+parameters->grav+parameters->add_DM);
 			fflush(stdout);
 		}
 	}
@@ -405,17 +405,28 @@ void write_instantaneous_primary_spectra(double **instantaneous_primary_spectra,
 	rewind(file);
 	fprintf(file,"Hawking primary spectra for each particle types.\n");
 	if(!parameters->grav){
-		if(parameters->add_DM){
+		if(parameters->add_DM == 1){
 			if(parameters->hadronization_choice != 3){
-				if(parameters->add_DM2){
-					fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","DM","DM2");
-				}
-				else{
-					fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","DM");
-				}
+				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","DM");
 			}
 			else{
 				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","pions");
+			}
+		}
+		else if(parameters->add_DM == 2){
+			if(parameters->hadronization_choice != 3){
+				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","DM","DM2");
+			}
+			else{
+				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","pions","DM2");
+			}
+		}
+		else if(parameters->add_DM == 3){
+			if(parameters->hadronization_choice != 3){
+				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","DM","DM2","DM3");
+			}
+			else{
+				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","pions","DM2","DM3");
 			}
 		}
 		else{
@@ -423,26 +434,22 @@ void write_instantaneous_primary_spectra(double **instantaneous_primary_spectra,
 		}
 	}
 	else{
-		if(parameters->add_DM){
-			if(parameters->add_DM2){
-				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","graviton","DM","DM2");
-			}
-			else{
-				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","graviton","DM");
-			}
+		if(parameters->add_DM == 1){
+			fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","graviton","DM");
+		}
+		else if(parameters->add_DM == 2){
+			fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","graviton","DM","DM2");
+		}
+		else if(parameters->add_DM == 3){
+			fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","graviton","DM","DM2","DM3");
 		}
 		else{
-			if(parameters->add_DM2){
-				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","graviton","DM2");
-			}
-			else{
-				fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","graviton");
-			}
+			fprintf(file,"%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s%15s\n","energy/particle","photon","gluons","higgs","W+-","Z0","neutrinos","electron","muon","tau","up","down","charm","strange","top","bottom","graviton");
 		}
 	}
 	for(int j = 0;j<parameters->E_number;j++){
 		fprintf(file,"%15.5e",energies[j]);
-		for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM+parameters->add_DM2;i++){
+		for(int i = 0;i<parameters->particle_number+parameters->grav+parameters->add_DM;i++){
 			fprintf(file,"%15.5e",instantaneous_primary_spectra[i][j]*rate_conversion); // conversion from GeV to CGS units
 		}
 		fprintf(file,"\n");

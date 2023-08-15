@@ -344,7 +344,7 @@ int read_params(struct param *parameters, char name[],int session){
 			fscanf(param_file,"%s",dummy);
 			fscanf(param_file,"%i",&(parameters->add_DM));
 			
-			if(parameters->add_DM != 0 && parameters->add_DM != 1)
+			if(parameters->add_DM != 0 && parameters->add_DM != 1 && parameters->add_DM != 2 && parameters->add_DM != 3)
 			{
 				printf("\n\t [read_params] : ERROR WRONG DM CHOICE !\n");
 				fflush(stdout);
@@ -352,19 +352,6 @@ int read_params(struct param *parameters, char name[],int session){
 				return 0;
 			}
 		}
-		else if(!strcasecmp(dummy,"add_DM2"))
-		{
-			fscanf(param_file,"%s",dummy);
-			fscanf(param_file,"%i",&(parameters->add_DM2));
-			
-			if(parameters->add_DM2 != 0 && parameters->add_DM2 != 1)
-			{
-				printf("\n\t [read_params] : ERROR WRONG DM2 CHOICE !\n");
-				fflush(stdout);
-				fclose(param_file);
-				return 0;
-			}
-		}		
 		else if(!strcasecmp(dummy,"m_DM"))
 		{
 			fscanf(param_file,"%s",dummy);
@@ -374,7 +361,7 @@ int read_params(struct param *parameters, char name[],int session){
 		{
 			fscanf(param_file,"%s",dummy);
 			fscanf(param_file,"%lf",&(parameters->m_DM2));
-		}		
+		}
 		else if(!strcasecmp(dummy,"spin_DM"))
 		{
 			fscanf(param_file,"%s",dummy);
@@ -452,12 +439,17 @@ int read_params(struct param *parameters, char name[],int session){
 		}
 		parameters->param_number = 1; // epsilon is the same for all BHs
 		parameters->spectrum_choice_param = 0;
-		if(parameters->add_DM && parameters->spin_DM == 1.5){
+		if(parameters->add_DM == 1 && parameters->spin_DM == 1.5){
 			printf("\n\t [read_params] : ERROR POLYMERIZED HR WAS NOT COMPUTED FOR SPIN 3/2 !\n");
 			fflush(stdout);
 			return 0;
 		}
-		if(parameters->add_DM2 && parameters->spin_DM2 == 1.5){
+		if(parameters->add_DM == 2 && (parameters->spin_DM == 1.5 || parameters->spin_DM2 == 1.5)){
+			printf("\n\t [read_params] : ERROR POLYMERIZED HR WAS NOT COMPUTED FOR SPIN 3/2 !\n");
+			fflush(stdout);
+			return 0;
+		}
+		if(parameters->add_DM == 3 && (parameters->spin_DM == 1.5 || parameters->spin_DM2 == 1.5 || parameters->spin_DM3 == 1.5)){
 			printf("\n\t [read_params] : ERROR POLYMERIZED HR WAS NOT COMPUTED FOR SPIN 3/2 !\n");
 			fflush(stdout);
 			return 0;
@@ -475,7 +467,12 @@ int read_params(struct param *parameters, char name[],int session){
 			fflush(stdout);
 			return 0;
 		}
-		if(parameters->add_DM2 == 1 && parameters->spin_DM2 == 1.5){
+		if(parameters->add_DM == 2 && (parameters->spin_DM == 1.5 || parameters->spin_DM2 == 1.5)){
+			printf("\n\t [read_params] : ERROR CHARGED BH HR WAS NOT COMPUTED FOR SPIN 3/2 !\n");
+			fflush(stdout);
+			return 0;
+		}
+		if(parameters->add_DM == 3 && (parameters->spin_DM == 1.5 || parameters->spin_DM2 == 1.5 || parameters->spin_DM3 == 1.5)){
 			printf("\n\t [read_params] : ERROR CHARGED BH HR WAS NOT COMPUTED FOR SPIN 3/2 !\n");
 			fflush(stdout);
 			return 0;
@@ -500,7 +497,12 @@ int read_params(struct param *parameters, char name[],int session){
 			fflush(stdout);
 			return 0;
 		}
-		if(parameters->add_DM2 == 1 && parameters->spin_DM2 == 1.5){
+		if(parameters->add_DM == 2 && (parameters->spin_DM == 1.5 || parameters->spin_DM2 == 1.5)){
+			printf("\n\t [read_params] : ERROR HIGHER DIMENSIONAL BH HR WAS NOT COMPUTED FOR SPIN 3/2 !\n");
+			fflush(stdout);
+			return 0;
+		}
+		if(parameters->add_DM == 3 && (parameters->spin_DM == 1.5 || parameters->spin_DM2 == 1.5 || parameters->spin_DM3 == 1.5)){
 			printf("\n\t [read_params] : ERROR HIGHER DIMENSIONAL BH HR WAS NOT COMPUTED FOR SPIN 3/2 !\n");
 			fflush(stdout);
 			return 0;
@@ -589,7 +591,7 @@ int read_params(struct param *parameters, char name[],int session){
 		return 0;
 	}
 	
-	if(parameters->add_DM)
+	if(parameters->add_DM == 1)
 	{
 		if(parameters->m_DM < 0.){
 			printf("\n\t [read_params] : ERROR WRONG DM MASS !\n");
@@ -607,20 +609,38 @@ int read_params(struct param *parameters, char name[],int session){
 			return 0;
 		}
 	}
-	if(parameters->add_DM2)
+	if(parameters->add_DM == 2)
 	{
-		if(parameters->m_DM2 < 0.){
-			printf("\n\t [read_params] : ERROR WRONG DM2 MASS !\n");
+		if(parameters->m_DM < 0. || parameters->m_DM2 < 0.){
+			printf("\n\t [read_params] : ERROR WRONG DM MASS !\n");
 			fflush(stdout);
 			return 0;
 		}
-		if(parameters->spin_DM2 != 0. && parameters->spin_DM2 != 1. && parameters->spin_DM2 != 2. && parameters->spin_DM2 != 0.5 && parameters->spin_DM2 != 1.5){
-			printf("\n\t [read_params] : ERROR WRONG DM2 SPIN !\n");
+		if((parameters->spin_DM != 0. && parameters->spin_DM != 1. && parameters->spin_DM != 2. && parameters->spin_DM != 0.5 && parameters->spin_DM != 1.5) || (parameters->spin_DM2 != 0. && parameters->spin_DM2 != 1. && parameters->spin_DM2 != 2. && parameters->spin_DM2 != 0.5 && parameters->spin_DM2 != 1.5)){
+			printf("\n\t [read_params] : ERROR WRONG DM SPIN !\n");
 			fflush(stdout);
 			return 0;
 		}
-		if(parameters->dof_DM2 < 0.){
-			printf("\n\t [read_params] : ERROR WRONG DM2 DOFS !\n");
+		if(parameters->dof_DM < 0. || parameters->dof_DM2 < 0.){
+			printf("\n\t [read_params] : ERROR WRONG DM DOFS !\n");
+			fflush(stdout);
+			return 0;
+		}
+	}
+	if(parameters->add_DM == 3)
+	{
+		if(parameters->m_DM < 0. || parameters->m_DM2 < 0. || parameters->m_DM3 < 0.){
+			printf("\n\t [read_params] : ERROR WRONG DM MASS !\n");
+			fflush(stdout);
+			return 0;
+		}
+		if((parameters->spin_DM != 0. && parameters->spin_DM != 1. && parameters->spin_DM != 2. && parameters->spin_DM != 0.5 && parameters->spin_DM != 1.5) || (parameters->spin_DM2 != 0. && parameters->spin_DM2 != 1. && parameters->spin_DM2 != 2. && parameters->spin_DM2 != 0.5 && parameters->spin_DM2 != 1.5) || (parameters->spin_DM3 != 0. && parameters->spin_DM3 != 1. && parameters->spin_DM3 != 2. && parameters->spin_DM3 != 0.5 && parameters->spin_DM3 != 1.5)){
+			printf("\n\t [read_params] : ERROR WRONG DM SPIN !\n");
+			fflush(stdout);
+			return 0;
+		}
+		if(parameters->dof_DM < 0. || parameters->dof_DM2 < 0. || parameters->dof_DM3 < 0.){
+			printf("\n\t [read_params] : ERROR WRONG DM DOFS !\n");
 			fflush(stdout);
 			return 0;
 		}
@@ -635,12 +655,16 @@ int read_params(struct param *parameters, char name[],int session){
 			return 0;
 		}
 		
-		if(parameters->add_DM && parameters->dof_DM > 1.){
-			printf("\n\t [read_params] : WARNING THE EVOLUTION TABLES HAVE BEEN TABULATED FOR A SINGLE DM DOF !\n");
+		if(parameters->add_DM == 1 && parameters->dof_DM > 2.){
+			printf("\n\t [read_params] : WARNING THE EVOLUTION TABLES HAVE BEEN TABULATED FOR 2 DM DOFs !\n");
 			fflush(stdout);
 		}
-		if(parameters->add_DM2 && parameters->dof_DM2 > 1.){
-			printf("\n\t [read_params] : WARNING THE EVOLUTION TABLES HAVE BEEN TABULATED FOR A SINGLE DM2 DOF !\n");
+		if(parameters->add_DM == 2 && (parameters->dof_DM > 2. || parameters->dof_DM2 > 90.)){
+			printf("\n\t [read_params] : WARNING THE EVOLUTION TABLES HAVE BEEN TABULATED FOR 2 DM DOFS AND 90 DM2 DOFS !\n");
+			fflush(stdout);
+		}
+		if(parameters->add_DM == 3 && (parameters->dof_DM > 2. || parameters->dof_DM2 > 90. || parameters->dof_DM3 > 30.)){
+			printf("\n\t [read_params] : WARNING THE EVOLUTION TABLES HAVE BEEN TABULATED FOR 2 DM DOFs, 90 DM2 DOFS, AND 30 DM3 DOFS !\n");
 			fflush(stdout);
 		}
 	}
@@ -714,7 +738,7 @@ int read_params(struct param *parameters, char name[],int session){
 	}
 	
 	if(parameters->hadronization_choice == 3){
-		if(parameters->add_DM == 0 && parameters->add_DM2 == 0){
+		if(parameters->add_DM == 0){
 			parameters->add_DM = 1;
 			parameters->m_DM = m_pi0; // we have m_pi0 < m_pipm and we put back the constraint of E>m_pipm manually for the FSR 
 			parameters->spin_DM = 0.;
@@ -1313,17 +1337,17 @@ int memory_estimation(struct param *parameters,int session){
 			double gamma_param = 8.*(parameters->nb_gamma_param);
 			double gamma_x = 8.*(parameters->nb_gamma_x);
 			double fits = 8.*4.*(parameters->nb_gamma_param)*parameters->nb_gamma_fits;
-			double dof = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM + parameters->add_DM2);
-			double masses_primary = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM + parameters->add_DM2);
+			double dof = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM);
+			double masses_primary = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM);
 			double masses_secondary = 8.*(parameters->nb_fin_part);
-			double spins = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM + parameters->add_DM2);
+			double spins = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM);
 			double times = 8.*mean_evolution*(parameters->BH_number)*(parameters->param_number);
 			double energies = 8.*(parameters->E_number);
 			double tables = 8.*(parameters->nb_fin_part)*(parameters->nb_init_en)*(parameters->nb_fin_en)*(parameters->nb_fin_part);
 			double initial_energies = 8.*(parameters->nb_init_en);
 			double final_energies = 8.*(parameters->nb_fin_en);
 			double partial_hadronized_spectra = 8.*(parameters->nb_fin_part)*(parameters->E_number)*(parameters->nb_fin_en);
-			double partial_primary_spectra = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM+ parameters->add_DM2)*(parameters->E_number);
+			double partial_primary_spectra = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM)*(parameters->E_number);
 			double partial_integrated_hadronized_spectra = 8.*(parameters->nb_fin_part)*(parameters->nb_fin_en);
 			RAM_use_steps[0] = init_masses + init_params + spec_table; // step 1
 			RAM_use_steps[1] = init_masses + init_params + spec_table + fM_table + fM_a + fM_masses + gM_table + evol_times + rank + sorted_times + life_masses + life_params + life_times + dts; // step 2
@@ -1335,7 +1359,7 @@ int memory_estimation(struct param *parameters,int session){
 			// definition of the disk memory used by the output files
 			double BH_spectrum = 12.*(parameters->BH_number + 1.)*(parameters->param_number + 1.);
 			double life_evolutions = 12.*(parameters->BH_number)*(1. + 2.*parameters->param_number)*(parameters->BH_number)*(parameters->param_number)*mean_evolution;
-			double primary_spectrum = 12.*(parameters->particle_number + parameters->grav + parameters->add_DM+ parameters->add_DM2)*(parameters->E_number)*mean_evolution*(parameters->BH_number)*(parameters->param_number);
+			double primary_spectrum = 12.*(parameters->particle_number + parameters->grav + parameters->add_DM)*(parameters->E_number)*mean_evolution*(parameters->BH_number)*(parameters->param_number);
 			double secondary_spectrum;
 			if(parameters->primary_only == 0){
 				secondary_spectrum = 12.*(parameters->nb_fin_part)*(parameters->nb_fin_en)*mean_evolution*(parameters->BH_number)*(parameters->param_number);
@@ -1355,11 +1379,11 @@ int memory_estimation(struct param *parameters,int session){
 			double gamma_param = 8.*(parameters->nb_gamma_param);
 			double gamma_x = 8.*(parameters->nb_gamma_x);
 			double fits = 8.*4.*(parameters->nb_gamma_param)*(parameters->nb_gamma_fits);
-			double dof = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM+ parameters->add_DM2);
-			double masses1 = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM+ parameters->add_DM2);
+			double dof = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM);
+			double masses1 = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM);
 			double masses2 = 8.*(parameters->nb_fin_part);
-			double spins = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM+ parameters->add_DM2);
-			double instantaneous_primary_spectra = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM+ parameters->add_DM2)*(parameters->E_number);
+			double spins = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM);
+			double instantaneous_primary_spectra = 8.*(parameters->particle_number + parameters->grav + parameters->add_DM)*(parameters->E_number);
 			double energies = 8.*(parameters->E_number);
 			double tables = 8.*(parameters->nb_fin_part)*(parameters->nb_init_en)*(parameters->nb_fin_en)*(parameters->nb_fin_part);
 			double initial_energies = 8.*(parameters->nb_init_en);
@@ -1379,7 +1403,7 @@ int memory_estimation(struct param *parameters,int session){
 			RAM_use = RAM_use_steps[ind_max(RAM_use_steps,4)]; // finding the maximum use
 			// definition of the disk memory used by the output files
 			double BH_spectrum = 12.*(parameters->BH_number + 1.)*(parameters->param_number +1.);
-			double primary_spectrum = 12.*(parameters->E_number)*(parameters->particle_number + parameters->grav + parameters->add_DM+ parameters->add_DM2);
+			double primary_spectrum = 12.*(parameters->E_number)*(parameters->particle_number + parameters->grav + parameters->add_DM);
 			double secondary_spectrum;
 			if(parameters->primary_only == 0){
 				secondary_spectrum = 12.*(parameters->nb_fin_en)*(parameters->nb_fin_part);
