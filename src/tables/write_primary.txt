@@ -16,3 +16,4 @@ write_primary_bottom	=	1
 write_primary_graviton	=	1
 write_primary_DM 		= 	1
 write_primary_DM2 		= 	1
+write_primary_DM3 		= 	1
