@@ -9,9 +9,9 @@ Mmin = 1e+9								# lowest BH mass in g (larger than the Planck mass)
 Mmax = 1e+9									# highest BH mass in g (larger than the Planck mass)
 param_number = 1									# number of Kerr spins
 amin = 0.									# lowest Kerr spin
-amax = 00									# highest Kerr spin
+amax = 0.5									# highest Kerr spin
 Qmin = 0.									# lowest Reissner-Norström charge
-Qmax = 0.0									# highest Reissner-Norström charge
+Qmax = 0.7									# highest Reissner-Norström charge
 
 epsilon_LQG = 1.5								# dimensionless epsilon parameter for the polymerized metric
 a0_LQG = 0.									# minimal area for the polymerized metric in GeV^(-2)
@@ -42,21 +42,23 @@ tmin_manual = 0									# 1: user-defined tmin, 0:automatically set tmin
 tmin = 1.e-30									# initial integration time of the evolution of BH in s
 limit = 5000									# iteration limit when computing the time evolution of a single BH
 BH_remnant = 0									# 0: total evaporation, 1: BH relic at mass M_relic
-M_remnant = 1e-4  								# BH relic mass in g
+M_remnant = 1e-4								# BH relic mass in g
 
-E_number = 100  									# number of primary particles energies to be simulated
-Emin = 1e+3										# minimal energy in GeV of the primary particles
-Emax = 1e+6										# maximal energy in GeV of the primary particles
+E_number = 10									# number of primary particles energies to be simulated
+Emin = 5										# minimal energy in GeV of the primary particles
+Emax = 1e+5										# maximal energy in GeV of the primary particles
 
 grav = 1										# 0=no graviton, 1=emission of gravitons
-add_DM = 1										# 0=no DM added, 1=one DM particle
-add_DM2 = 1										# 0=no DM2 added, 1=one DM2 particle
-m_DM =	1.									# DM mass in GeV
-m_DM2 = 1.										# DM2 mass in GeV
-spin_DM = 1.										# DM spin
-spin_DM2 = 1										# DM2 spin
-dof_DM = 1   										# number of DM degrees of freedom
-dof_DM2 = 1										# number of DM2 degrees of freedom
+add_DM = 3										# 0=no DM added, 1=one DM particle, 2=two DM particles, 3=three DM particles
+m_DM = 200.										# DM mass in GeV
+m_DM2 = 1000.										# DM2 mass in GeV
+m_DM3 = 1000.										# DM3 mass in GeV
+spin_DM = 0.5										# DM spin
+spin_DM2 = 0.										# DM2 spin
+spin_DM3 = 0.5										# DM3 spin
+dof_DM = 2.										# number of DM degrees of freedom
+dof_DM2 = 90.										# number of DM2 degrees of freedom
+dof_DM3 = 30.										# number of DM3 degrees of freedom
 
 primary_only = 1								# 1=no secondary spectrum, 0=secondary spectrum computed
 

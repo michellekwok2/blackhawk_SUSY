@@ -297,7 +297,7 @@ int main(int argc,char **argv)
 	fflush(stdout);
 	
 	// Defining particle information
-	double *dof = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2)*sizeof(double)); // contains the number of degrees of freedom of each particle
+	double *dof = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM)*sizeof(double)); // contains the number of degrees of freedom of each particle
 	dof[0] = 2.; // photons (2 helicity states)
 	dof[5] = 6.; // neutrinos (3 particle species)*(1 helicity state)*(2 for antiparticles)
 	dof[6] = 4.; // electrons (2 helicity states)*(2 for antiparticles)
@@ -330,33 +330,35 @@ int main(int argc,char **argv)
 	}
 	if(parameters.grav){
 		dof[15] = 2.; // graviton (2 polarization states)
-		if(parameters.add_DM){
+		if(parameters.add_DM == 1){
 			dof[16] = parameters.dof_DM;
-			if(parameters.add_DM2){
-				dof[17] = parameters.dof_DM2;
-			}
 		}
-		else{
-			if(parameters.add_DM2){
-				dof[16] = parameters.dof_DM2;
-			}
+		else if(parameters.add_DM == 2){
+			dof[16] = parameters.dof_DM;
+			dof[17] = parameters.dof_DM2;
+		}
+		else if(parameters.add_DM == 3){
+			dof[16] = parameters.dof_DM;
+			dof[17] = parameters.dof_DM2;
+			dof[18] = parameters.dof_DM3;
 		}
 	}
 	else{
-		if(parameters.add_DM){
+		if(parameters.add_DM == 1){
 			dof[15] = parameters.dof_DM;
-			if(parameters.add_DM2){
-				dof[16] = parameters.dof_DM2;
-			}
 		}
-		else{
-			if(parameters.add_DM2){
-				dof[15] = parameters.dof_DM2;
-			}
+		else if(parameters.add_DM == 2){
+			dof[15] = parameters.dof_DM;
+			dof[16] = parameters.dof_DM2;
+		}
+		else if(parameters.add_DM == 3){
+			dof[15] = parameters.dof_DM;
+			dof[16] = parameters.dof_DM2;
+			dof[17] = parameters.dof_DM3;
 		}
 	}
 		
-	double *spins = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2)*sizeof(double)); // contains the spin of each particle
+	double *spins = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM)*sizeof(double)); // contains the spin of each particle
 	spins[0] = 1.;
 	spins[1] = 1.;
 	spins[2] = 0.;
@@ -374,29 +376,35 @@ int main(int argc,char **argv)
 	spins[14] = 0.5;
 	if(parameters.grav){
 		spins[15] = 2.;
-		if(parameters.add_DM){
+		if(parameters.add_DM == 1){
 			spins[16] = parameters.spin_DM;
-			if(parameters.add_DM2){
-				spins[17] = parameters.spin_DM2;
-			}
 		}
-		else if(parameters.add_DM2){
-			spins[16] = parameters.spin_DM2;
+		else if(parameters.add_DM == 2){
+			spins[16] = parameters.spin_DM;
+			spins[17] = parameters.spin_DM2;
+		}
+		else if(parameters.add_DM == 3){
+			spins[16] = parameters.spin_DM;
+			spins[17] = parameters.spin_DM2;
+			spins[18] = parameters.spin_DM3;
 		}
 	}
 	else{
-		if(parameters.add_DM){
+		if(parameters.add_DM == 1){
 			spins[15] = parameters.spin_DM;
-			if(parameters.add_DM2){
-				spins[16] = parameters.spin_DM2;
-			}
 		}
-		else if(parameters.add_DM2){
-			spins[15] = parameters.spin_DM2;
+		else if(parameters.add_DM == 2){
+			spins[15] = parameters.spin_DM;
+			spins[16] = parameters.spin_DM2;
+		}
+		else if(parameters.add_DM == 3){
+			spins[15] = parameters.spin_DM;
+			spins[16] = parameters.spin_DM2;
+			spins[17] = parameters.spin_DM3;
 		}
 	}
 	
-	double *masses_primary = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2)*sizeof(double)); // contains the mass of each particle
+	double *masses_primary = (double *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM)*sizeof(double)); // contains the mass of each particle
 	masses_primary[0] = m_photon;
 	masses_primary[1] = m_gluon;
 	masses_primary[2] = m_higgs;
@@ -414,34 +422,36 @@ int main(int argc,char **argv)
 	masses_primary[14] = m_bottom;
 	if(parameters.grav){
 		masses_primary[15] = m_graviton;
-		if(parameters.add_DM){
+		if(parameters.add_DM == 1){
 			masses_primary[16] = parameters.m_DM;
-			if(parameters.add_DM2){
-				masses_primary[17] = parameters.m_DM2;
-			}
 		}
-		else{
-			if(parameters.add_DM2){
-				masses_primary[16] = parameters.m_DM2;
-			}
+		else if(parameters.add_DM == 2){
+			masses_primary[16] = parameters.m_DM;
+			masses_primary[17] = parameters.m_DM2;
+		}
+		else if(parameters.add_DM == 3){
+			masses_primary[16] = parameters.m_DM;
+			masses_primary[17] = parameters.m_DM2;
+			masses_primary[18] = parameters.m_DM3;
 		}
 	}
 	else{
-		if(parameters.add_DM){
+		if(parameters.add_DM == 1){
 			masses_primary[15] = parameters.m_DM;
-			if(parameters.add_DM2){
-				masses_primary[16] = parameters.m_DM2;
-			}
 		}
-		else{
-			if(parameters.add_DM2){
-				masses_primary[15] = parameters.m_DM2;
-			}
+		else if(parameters.add_DM == 2){
+			masses_primary[15] = parameters.m_DM;
+			masses_primary[16] = parameters.m_DM2;
+		}
+		else if(parameters.add_DM == 3){
+			masses_primary[15] = parameters.m_DM;
+			masses_primary[16] = parameters.m_DM2;
+			masses_primary[17] = parameters.m_DM3;
 		}
 	}
 	
-	double **instantaneous_primary_spectra = (double **)malloc((parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2)*sizeof(double *)); // contains the Hawking spectra of each primary particle
-	for(int i = 0;i<parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2;i++){
+	double **instantaneous_primary_spectra = (double **)malloc((parameters.particle_number+parameters.grav+parameters.add_DM)*sizeof(double *)); // contains the Hawking spectra of each primary particle
+	for(int i = 0;i<parameters.particle_number+parameters.grav+parameters.add_DM;i++){
 		instantaneous_primary_spectra[i] = (double *)malloc(parameters.E_number*sizeof(double));
 		for(int j = 0;j<parameters.E_number;j++){
 			instantaneous_primary_spectra[i][j] = 0.;
@@ -464,7 +474,7 @@ int main(int argc,char **argv)
 		}
 	}
 	
-	int *compute_primary = (int *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2)*sizeof(int)); // this table decides whether the corresponding spectra are computed or not
+	int *compute_primary = (int *)malloc((parameters.particle_number+parameters.grav+parameters.add_DM)*sizeof(int)); // this table decides whether the corresponding spectra are computed or not
 	compute_primary[0] = 1; // photons
 	compute_primary[1] = 1; // gluons
 	compute_primary[2] = 1; // higgs boson
@@ -482,25 +492,31 @@ int main(int argc,char **argv)
 	compute_primary[14] = 1; // bottom quark
 	if(parameters.grav){
 		compute_primary[15] = 1; // graviton
-		if(parameters.add_DM){
+		if(parameters.add_DM == 1){
 			compute_primary[16] = 1;
-			if(parameters.add_DM2){
-				compute_primary[17] = 1;
-			}
 		}
-		else if(parameters.add_DM2){
+		else if(parameters.add_DM == 2){
 			compute_primary[16] = 1;
+			compute_primary[17] = 1;
+		}
+		else if(parameters.add_DM == 3){
+			compute_primary[16] = 1;
+			compute_primary[17] = 1;
+			compute_primary[18] = 1;
 		}
 	}
-	else{
-		if(parameters.add_DM){
+	else{ 
+		if(parameters.add_DM == 1){
 			compute_primary[15] = 1;
-			if(parameters.add_DM2){
-				compute_primary[16] = 1;
-			}
 		}
-		else if(parameters.add_DM2){
+		else if(parameters.add_DM == 2){
 			compute_primary[15] = 1;
+			compute_primary[16] = 1;
+		}
+		else if(parameters.add_DM == 3){
+			compute_primary[15] = 1;
+			compute_primary[16] = 1;
+			compute_primary[17] = 1;
 		}
 	}
 	
@@ -697,7 +713,7 @@ int main(int argc,char **argv)
 		}
 		fflush(stdout);
 		
-		free2D_double(instantaneous_primary_spectra,parameters.particle_number+parameters.grav+parameters.add_DM+parameters.add_DM2);
+		free2D_double(instantaneous_primary_spectra,parameters.particle_number+parameters.grav+parameters.add_DM);
 		free1D_double(initial_energies); // freeing arrays not used anymore
 		free3D_double(instantaneous_hadronized_spectra,parameters.nb_fin_part,parameters.E_number);
 		free1D_double(energies);
