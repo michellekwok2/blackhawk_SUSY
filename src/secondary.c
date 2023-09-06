@@ -510,26 +510,13 @@ void total_spectra(double ***partial_hadronized_spectra,double **partial_primary
 			sprintf(file_names_primary[15],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
 		}
 		else if(parameters->add_DM == 2){
-			if(parameters->hadronization_choice != 3){
-				sprintf(file_names_primary[15],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
-				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
-			}
-			else{
-				sprintf(file_names_primary[15],"./results/%s/pion_primary_spectrum.txt",parameters->destination_folder);
-				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);				
-			}
+			sprintf(file_names_primary[15],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
+			sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
 		}
 		else if(parameters->add_DM == 3){
-			if(parameters->hadronization_choice != 3){
-				sprintf(file_names_primary[15],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
-				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
-				sprintf(file_names_primary[17],"./results/%s/DM3_primary_spectrum.txt",parameters->destination_folder);
-			}
-			else{
-				sprintf(file_names_primary[15],"./results/%s/pion_primary_spectrum.txt",parameters->destination_folder);
-				sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
-				sprintf(file_names_primary[17],"./results/%s/DM3_primary_spectrum.txt",parameters->destination_folder);				
-			}
+			sprintf(file_names_primary[15],"./results/%s/DM_primary_spectrum.txt",parameters->destination_folder);
+			sprintf(file_names_primary[16],"./results/%s/DM2_primary_spectrum.txt",parameters->destination_folder);
+			sprintf(file_names_primary[17],"./results/%s/DM3_primary_spectrum.txt",parameters->destination_folder);
 		}
 	}
 	FILE *file;

@@ -362,6 +362,11 @@ int read_params(struct param *parameters, char name[],int session){
 			fscanf(param_file,"%s",dummy);
 			fscanf(param_file,"%lf",&(parameters->m_DM2));
 		}
+		else if(!strcasecmp(dummy,"m_DM3"))
+		{
+			fscanf(param_file,"%s",dummy);
+			fscanf(param_file,"%lf",&(parameters->m_DM3));
+		}
 		else if(!strcasecmp(dummy,"spin_DM"))
 		{
 			fscanf(param_file,"%s",dummy);
@@ -372,6 +377,11 @@ int read_params(struct param *parameters, char name[],int session){
 			fscanf(param_file,"%s",dummy);
 			fscanf(param_file,"%lf",&(parameters->spin_DM2));
 		}
+		else if(!strcasecmp(dummy,"spin_DM3"))
+		{
+			fscanf(param_file,"%s",dummy);
+			fscanf(param_file,"%lf",&(parameters->spin_DM3));
+		}
 		else if(!strcasecmp(dummy,"dof_DM"))
 		{
 			fscanf(param_file,"%s",dummy);
@@ -381,6 +391,11 @@ int read_params(struct param *parameters, char name[],int session){
 		{
 			fscanf(param_file,"%s",dummy);
 			fscanf(param_file,"%lf",&(parameters->dof_DM2));
+		}
+		else if(!strcasecmp(dummy,"dof_DM3"))
+		{
+			fscanf(param_file,"%s",dummy);
+			fscanf(param_file,"%lf",&(parameters->dof_DM3));
 		}
 		else if(!strcasecmp(dummy,"primary_only"))
 		{
